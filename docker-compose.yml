@@ -1,0 +1,22 @@
+admin-test:
+  ports:
+  - 56324:22/tcp
+  environment:
+    SSH_KEY: |
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0DnBk/I1a/21WLTqNxS2BLbFnXtxJBlI7wqwN2rpA5nMmRVHvXaaiDur6Y8MFn3G0uZr8uawmfidFUPz9k1tlbXEwRtAbo4Ej7YSKu0pn9oG4DODHMjHxdkTyTIzaVegUP6Y0DipwckqDpAV92diTcTgRdHpuZ2EpgFGxuUQyrd2N5HNf7Wgn9bbkqkJXiR+0BaLy1gzYDZnr7JL1qDX0Z4i2+PEfH2L7FgW5SvWUywoVkM877llydsGOitDk3twiXPtUXJYgaKmtxocA7SE8HjIwn2V2ReyuwZC1b/3rZvkZVXkfPvSc23kFtoipQHBOcYDLK5kqbiPV4cJEL6Gn geronimo@mikroways-n01
+  tty: true
+  build: . 
+  links:
+  - postgres:dbpostgres
+  volumes:
+  - liferay-tamberos-db-psql:/var/lib/postgresql/data/
+postgres:
+  environment:
+    POSTGRES_DB: liferay_inta
+    POSTGRES_PASSWORD: inta123
+    POSTGRES_USER: inta
+  tty: true
+  image: postgres:9.5
+  volumes:
+  - liferay-tamberos-db-psql:/var/lib/postgresql/data/
+  stdin_open: true
